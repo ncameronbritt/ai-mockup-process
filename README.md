@@ -2,6 +2,8 @@
 
 A workflow for building high-fidelity UX design mockups in a React codebase using Claude Code.
 
+The goal is mockups that look and feel indistinguishable from the real product — same shell, same component library, same design tokens. This is achieved by having Claude read the actual production codebase rather than working from screenshots or descriptions alone. The prerequisite is a working local dev environment: Claude needs to be able to scan the code to understand the shell, theming, and component patterns, and to run the app so you can verify mocks in a browser at a real URL.
+
 ## What's here
 
 - **`design-system-mocks-playbook.md`** — the full workflow: five prompts covering codebase analysis, bootstrapping a mock environment, planning and building individual mocks, and fidelity auditing.
@@ -30,3 +32,7 @@ When you improve the general process, update this repo. When you refine project-
 ## Session hygiene
 
 The audit skill is most effective when run in a **fresh Claude Code session**, separate from the session that built the mock. See the Session Hygiene section of the playbook for the full reasoning.
+
+## Sharing mocks
+
+Mocks live on a dedicated branch in the project repo. Sharing is as simple as pointing engineers or stakeholders to that branch and the local dev URL — no separate design tool or export step required. Engineers can read the code directly if they want implementation detail.
