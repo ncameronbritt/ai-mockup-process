@@ -1,15 +1,15 @@
-Ask the user for the context needed to plan this mock. In a single message, present a numbered list for them to fill in:
+Ask the user for the context needed to plan this mock, one question at a time as plain conversational messages — wait for their answer before asking the next. Do not use a structured question/choice tool for these; they need to be free-form chat replies so screenshots can be attached inline where relevant.
+
+Ask, in this order:
 
 1. **Feature name** — short name, e.g. "Gateway Audit Events"
 2. **What it is** — 1–2 sentences describing the feature and who uses it
 3. **Docs** — URL to documentation, or "none"
-4. **Existing UI** — brief description of what the current experience looks like, if this replaces something (or "none")
+4. **Existing UI** — brief description of what the current experience looks like, if this replaces something (or "none"). If it replaces existing UI, ask them to attach screenshots along with this answer.
 5. **Key interactions to show** — the specific behaviors that must be demoable; be specific
 6. **Representational interactions** — controls that should look real but not need to work (saves, exports, dialogs)
 
-Close with: "If this replaces existing UI, attach screenshots before sending."
-
-Once the user responds, proceed:
+Once all six are answered, proceed:
 
 1. UNDERSTAND FIRST
    Read any documentation or screenshots provided. If this replaces existing UI, read the referenced existing components to understand the current implementation before designing the new version.
