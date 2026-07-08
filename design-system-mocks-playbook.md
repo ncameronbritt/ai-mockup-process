@@ -109,6 +109,8 @@ mockup environment ready for Prompt 3.
 **If running in a new session:**
 The prompt opens with "using the analysis above or re-analyzing if starting fresh" — so it's safe to run standalone. The AI will re-read the codebase before creating files. Expect it to take a few more turns than when running right after Prompt 1.
 
+> **Skill candidate:** Prompts 1 and 2 are a good candidate to convert to a Claude Code skill (`.claude/commands/bootstrap-mocks.md`). A skill would let you invoke it as `/bootstrap-mocks` instead of copy-pasting both prompts, and can check first whether the infrastructure already exists (MockChrome, registry, mocks CLAUDE.md) — reporting file paths and staleness signals instead of blindly redoing Prompt 1's analysis, which is the most expensive step in the whole lifecycle. The skill should keep the analysis → confirm → create gate between Prompt 1 and Prompt 2 intact rather than collapsing it into one unreviewed pass, and should run both steps in the same session per the Session Hygiene guidance below — splitting them across sessions means Prompt 2 re-analyzes from scratch.
+
 ```
 Using the codebase analysis above (or re-analyzing the codebase if starting fresh),
 create the design mockup infrastructure for this project.

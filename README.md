@@ -7,14 +7,15 @@ The goal is mockups that look and feel indistinguishable from the real product �
 ## What's here
 
 - **`design-system-mocks-playbook.md`** — the full workflow: five prompts covering codebase analysis, bootstrapping a mock environment, planning and building individual mocks, and fidelity auditing.
+- **`.claude/commands/bootstrap-mocks.md`** — a Claude Code skill that sets up the mock environment for a project (`/bootstrap-mocks`). Checks whether it's already been run before redoing the (comparatively expensive) codebase analysis.
 - **`.claude/commands/plan-mock.md`** — a Claude Code skill that runs the planning step interactively (`/plan-mock`).
 - **`.claude/commands/audit-mock.md`** — a Claude Code skill that runs a fidelity audit (`/audit-mock UserSettingsMock.tsx`).
 
 ## How to use this on a new project
 
-1. **Bootstrap the mock environment** — run Prompts 1 and 2 from the playbook in a Claude Code session. This creates the mock shell component, registry, routing, auth bypass, and a `CLAUDE.md` in the mocks directory.
+1. **Install the skills** — copy `.claude/commands/` into your project root (or `~/.claude/commands/` to make them available in every project). Update the path references in each skill file to match your project's structure.
 
-2. **Install the skills** — copy `.claude/commands/` into your project root (or `~/.claude/commands/` to make them available in every project). Update the path references in each skill file to match your project's structure.
+2. **Bootstrap the mock environment** — run `/bootstrap-mocks` in a Claude Code session. This creates the mock shell component, registry, routing, auth bypass, and a `CLAUDE.md` in the mocks directory. Safe to run again later — it detects an existing bootstrap and reports on it (including whether the shell looks stale) instead of redoing the analysis from scratch.
 
 3. **Design mocks** — use `/plan-mock` to plan a new mock interactively, then Prompt 3b from the playbook to build it.
 
@@ -39,6 +40,6 @@ Mocks live on a dedicated branch in the project repo. Sharing is as simple as po
 
 ## Adapting for other frameworks
 
-The prompts and skills are framework-agnostic — Prompts 1 and 2 discover the component library, router, and app shell from the codebase rather than assuming React. They will work as-is for Angular, Vue, or any other stack.
+This process has only actually been exercised on React codebases so far. Prompts 1 and 2 (and `/bootstrap-mocks`) are written to discover the component library, router, and app shell from the codebase rather than hardcoding React assumptions, so they may well work on Angular, Vue, or another stack — but that's untested, not confirmed. `/bootstrap-mocks` will stop and say so explicitly if it can't confirm the codebase is React, rather than improvising an unfamiliar framework's equivalents.
 
-The one thing that needs a manual review is the `CLAUDE.md` that Prompt 2 generates in the mocks directory. It includes a Visual Fidelity section with concrete patterns derived from the project's component library. After bootstrapping, read through that section and replace any component-library-specific advice (sx prop patterns, MUI variant overrides, etc.) with the equivalent guidance for your stack. The design sensibility principles above that section are framework-agnostic and can stay as-is.
+If you try this on a non-React project, treat the first run as a validation pass: review the analysis output carefully before letting it create files, and expect to correct assumptions that were implicitly React-shaped (e.g. `sx` prop patterns, MUI variant overrides in the generated `CLAUDE.md`'s Visual Fidelity section). Once a second framework has been run through successfully, this section should be updated with what actually needed to change.
