@@ -1,6 +1,17 @@
-Perform a fidelity audit on $ARGUMENTS.
+If $ARGUMENTS is empty, ask which mock file(s) to audit and wait for the
+answer before doing anything else — do not guess or default to auditing
+everything in the mocks directory. A plain filename or relative path is
+enough; there's no need to use @-mention, since this file gets opened with
+the Read tool either way.
+
+Perform a fidelity audit on $ARGUMENTS (or the file(s) just named).
 
 Do NOT make any changes yet. Complete steps 1–4 in full, then wait for confirmation.
+
+Throughout, prefer the Read, Glob, and Grep tools over shell commands
+(find/grep/cat/ls via Bash) for locating and opening files. Each distinct
+Bash invocation is its own permission prompt; Read/Glob/Grep cover the same
+ground with far fewer prompts over the course of an audit.
 
 ━━ STEP 1 — READ SOURCES OF TRUTH ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Read these in order before examining the mock:
